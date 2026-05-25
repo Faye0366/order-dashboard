@@ -18,7 +18,7 @@ if errorlevel 1 (
     echo  ❌ 更新失败，请查看上方错误信息。
 ) else (
     echo.
-    echo  💡 提示：双击 order_dashboard.html 即可在浏览器查看最新看板。
+    echo  💡 提示：双击 index.html 或访问 https://faye0366.github.io/order-dashboard/ 查看最新看板。
 )
 
 echo.

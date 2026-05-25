@@ -13,7 +13,7 @@ import os
 from datetime import datetime
 
 WORKSPACE   = r"C:\Users\Faye\WorkBuddy\2026-05-11-task-1"
-HTML_FILE   = os.path.join(WORKSPACE, "order_dashboard.html")
+HTML_FILE   = os.path.join(WORKSPACE, "index.html")
 JSON_FILE   = os.path.join(WORKSPACE, "dashboard_data.json")
 PYTHON_EXE  = r"C:\Users\Faye\.workbuddy\binaries\python\envs\default\Scripts\python.exe"
 PROCESS_PY  = os.path.join(WORKSPACE, "process_data.py")
