@@ -4,7 +4,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 
 print("Loading Excel file...")
-wb = openpyxl.load_workbook(r"C:\Users\Faye\Desktop\集运业务流量包数据统计.xlsx", read_only=True)
+wb = openpyxl.load_workbook(r"C:\Users\Faye\Desktop\WorkBuddy数据看板\集运业务流量包数据统计.xlsx", read_only=True)
 ws = wb["Sheet1"]
 
 rows = list(ws.iter_rows(values_only=True))
