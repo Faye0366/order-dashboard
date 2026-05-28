@@ -70,7 +70,7 @@ range_start = meta.get("liuliang_range", "2026-01-01 to ?").split(" to ")[0]
 print(f"   数据截止：{max_date_str}  |  覆盖月份：{', '.join(monthly_keys)}")
 
 # ── 3. 读取 HTML，逐项替换 ──────────────────────────────────────────────────────
-print("\n[3/3] 正在更新 order_dashboard.html...")
+print("\n[3/3] 正在更新 index.html...")
 
 with open(HTML_FILE, "r", encoding="utf-8") as f:
     html = f.read()
@@ -151,6 +151,6 @@ print(f"""
 ✅ 更新完成！
    数据截止：{max_date_str}
    覆盖月份：{', '.join(monthly_keys)}
-   输出文件：order_dashboard.html
+   输出文件：index.html
 {'=' * 50}
 """)

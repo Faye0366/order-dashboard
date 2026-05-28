@@ -27,9 +27,9 @@ echo.
 echo  🚀 正在推送到 GitHub...
 echo.
 cd /d C:\Users\Faye\WorkBuddy\2026-05-11-task-1
-git add .
-git commit -m "update: dashboard data %date% %time%"
-git push origin main
+"C:\Program Files\Git\bin\git.exe" add .
+"C:\Program Files\Git\bin\git.exe" commit -m "update: dashboard data %date% %time%"
+"C:\Program Files\Git\bin\git.exe" push origin main
 
 if errorlevel 1 (
     echo.
