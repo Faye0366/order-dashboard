@@ -465,35 +465,6 @@
     </div>
   </div>
 
-  <!-- 积分趋势图表（流量包视图下） -->
-  <div class="two-col" id="rowJFChart" style="display:none;margin-bottom:14px;">
-    <!-- 每日积分趋势 -->
-    <div class="section">
-      <div class="section-header">
-        <div>
-          <div class="section-title">每日完成积分趋势</div>
-          <div class="section-sub" id="sec-jf-trend-sub">按日汇总 · 积分数据</div>
-        </div>
-        <div class="tab-group" id="jfTrendTabs"></div>
-      </div>
-      <div class="chart-wrap" style="height:220px">
-        <canvas id="chartJfTrend"></canvas>
-      </div>
-    </div>
-    <!-- 每月累计积分+完成率 -->
-    <div class="section">
-      <div class="section-header">
-        <div>
-          <div class="section-title">每月累计完成积分</div>
-          <div class="section-sub">每月完成积分 & 完成率</div>
-        </div>
-      </div>
-      <div class="chart-wrap" style="height:220px">
-        <canvas id="chartJfMonthly"></canvas>
-      </div>
-    </div>
-  </div>
-
   <!-- 宽带 指标卡（隐藏，仅宽带视图显示） -->
   <div class="metric-row" id="rowKD" style="display:none;margin-bottom:20px;">
     <div class="metric-card">
@@ -537,6 +508,35 @@
       </div>
       <div class="chart-wrap" style="height:220px">
         <canvas id="chartTrend" role="img" aria-label="每月订单量趋势折线图">每月订单趋势</canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- 积分趋势图表（流量包视图下） -->
+  <div class="two-col" id="rowJFChart" style="display:none;margin-bottom:14px;">
+    <!-- 每日积分趋势 -->
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">每日完成积分趋势</div>
+          <div class="section-sub" id="sec-jf-trend-sub">按日汇总 · 积分数据</div>
+        </div>
+        <div class="tab-group" id="jfTrendTabs"></div>
+      </div>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartJfTrend"></canvas>
+      </div>
+    </div>
+    <!-- 每月累计积分+完成率 -->
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">每月累计完成积分</div>
+          <div class="section-sub">每月完成积分 & 完成率</div>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartJfMonthly"></canvas>
       </div>
     </div>
   </div>
