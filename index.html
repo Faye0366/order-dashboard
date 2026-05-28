@@ -392,7 +392,7 @@
 <div class="header">
   <div class="header-left">
     <h1>集运业务订单数据看板</h1>
-    <div class="meta" id="headerMeta">数据范围：2026-01-01 ~ 2026-05-25 &nbsp;|&nbsp; 口径：类型=流量包 · 成功订单</div>
+    <div class="meta" id="headerMeta">数据范围：2026-01-01 ~ 2026-05-27 &nbsp;|&nbsp; 口径：类型=流量包 · 成功订单</div>
   </div>
   <div class="header-right">
     <div class="biz-tabs">
@@ -400,7 +400,7 @@
       <button class="biz-tab" id="tabDB" onclick="switchBiz('duibi')">对比分析</button>
       <button class="biz-tab" id="tabKD" onclick="switchBiz('kuandai')">宽带</button>
     </div>
-    <div class="update-tag">更新：2026-05-26</div>
+    <div class="update-tag">更新：2026-05-28</div>
   </div>
 </div>
 
@@ -411,12 +411,12 @@
     <div class="metric-card">
       <div class="label">年度累计订单量</div>
       <div class="value" id="card-annual">—</div>
-      <div class="sub">流量包（截至5月25日）</div>
+      <div class="sub">流量包（截至5月27日）</div>
     </div>
     <div class="metric-card">
       <div class="label">本月累计订单量</div>
       <div class="value" id="card-thismonth">—</div>
-      <div class="sub" id="card-thismonth-sub">5月1-25日累计</div>
+      <div class="sub" id="card-thismonth-sub">5月1-27日累计</div>
       <div class="badge" id="card-mom-badge">—</div>
     </div>
     <div class="metric-card">
@@ -429,12 +429,12 @@
     <div class="metric-card" style="border-left:3px solid #7c5cbf;">
       <div class="label">年度累计订单量</div>
       <div class="value" id="card-annual-nods" style="color:#7c5cbf;">—</div>
-      <div class="sub">不含短时包（截至5月25日）</div>
+      <div class="sub">不含短时包（截至5月27日）</div>
     </div>
     <div class="metric-card" style="border-left:3px solid #7c5cbf;">
       <div class="label">本月累计订单量</div>
       <div class="value" id="card-thismonth-nods" style="color:#7c5cbf;">—</div>
-      <div class="sub" id="card-thismonth-nods-sub">不含短时包·5月1-25日</div>
+      <div class="sub" id="card-thismonth-nods-sub">不含短时包·5月1-27日</div>
       <div class="badge" id="card-mom-nods-badge">—</div>
     </div>
     <div class="metric-card" style="border-left:3px solid #7c5cbf;">
@@ -450,7 +450,7 @@
     <div class="metric-card" style="border-left:3px solid #e07b39;">
       <div class="label">本月完成积分</div>
       <div class="value" id="card-jf-val" style="color:#e07b39;">—</div>
-      <div class="sub" id="card-jf-sub">5月1-25日累计</div>
+      <div class="sub" id="card-jf-sub">5月1-27日累计</div>
       <div class="badge" id="card-jf-mom-badge">—</div>
     </div>
     <div class="metric-card" style="border-left:3px solid #e07b39;">
@@ -499,12 +499,12 @@
     <div class="metric-card">
       <div class="label">年度累计订单量（宽带）</div>
       <div class="value" id="card-annual-kd">—</div>
-      <div class="sub">2026年全年（截至5月25日）</div>
+      <div class="sub">2026年全年（截至5月27日）</div>
     </div>
     <div class="metric-card">
       <div class="label">本月累计订单量（宽带）</div>
       <div class="value" id="card-thismonth-kd">—</div>
-      <div class="sub" id="card-thismonth-kd-sub">5月1-25日累计</div>
+      <div class="sub" id="card-thismonth-kd-sub">5月1-27日累计</div>
     </div>
     <div class="metric-card">
       <div class="label">月均订单量（宽带）</div>
@@ -665,14 +665,14 @@
 <script>
 const DATA = {
   "annual": {
-    "2026": 862562
+    "2026": 881644
   },
   "monthly": {
     "2026-01": 182063,
     "2026-02": 174854,
     "2026-03": 213229,
     "2026-04": 177026,
-    "2026-05": 115390
+    "2026-05": 134472
   },
   "daily_by_month": {
     "2026-01": {
@@ -828,7 +828,9 @@ const DATA = {
       "2026-05-22": 8424,
       "2026-05-23": 8709,
       "2026-05-24": 8983,
-      "2026-05-25": 9261
+      "2026-05-25": 9261,
+      "2026-05-26": 9432,
+      "2026-05-27": 9650
     }
   },
   "daily_by_month_channel": {
@@ -1857,6 +1859,20 @@ const DATA = {
         "移动营业厅": 173,
         "私域": 38,
         "权益tab": 2
+      },
+      "2026-05-26": {
+        "集运宫格插件": 5540,
+        "充流量": 3679,
+        "移动营业厅": 186,
+        "私域": 21,
+        "权益tab": 6
+      },
+      "2026-05-27": {
+        "集运宫格插件": 6033,
+        "充流量": 3416,
+        "移动营业厅": 187,
+        "私域": 11,
+        "权益tab": 3
       }
     }
   },
@@ -2886,6 +2902,20 @@ const DATA = {
         "移动营业厅": 157,
         "私域": 38,
         "权益tab": 2
+      },
+      "2026-05-26": {
+        "集运宫格插件": 2724,
+        "充流量": 2572,
+        "移动营业厅": 158,
+        "私域": 21,
+        "权益tab": 6
+      },
+      "2026-05-27": {
+        "集运宫格插件": 2942,
+        "充流量": 2799,
+        "移动营业厅": 168,
+        "私域": 11,
+        "权益tab": 3
       }
     }
   },
@@ -6271,6 +6301,54 @@ const DATA = {
           "5G包": 1632,
           "权益包": 955
         }
+      },
+      "2026-05-26": {
+        "充流量": {
+          "权益包": 1533,
+          "短时包": 1107,
+          "5G包": 1039
+        },
+        "权益tab": {
+          "权益包": 6
+        },
+        "私域": {
+          "5G包": 21,
+          "权益包": 0
+        },
+        "移动营业厅": {
+          "5G包": 144,
+          "短时包": 28,
+          "权益包": 14
+        },
+        "集运宫格插件": {
+          "短时包": 2816,
+          "5G包": 1716,
+          "权益包": 1008
+        }
+      },
+      "2026-05-27": {
+        "充流量": {
+          "权益包": 1735,
+          "5G包": 1064,
+          "短时包": 617
+        },
+        "权益tab": {
+          "权益包": 3
+        },
+        "私域": {
+          "5G包": 10,
+          "权益包": 1
+        },
+        "移动营业厅": {
+          "5G包": 155,
+          "短时包": 19,
+          "权益包": 13
+        },
+        "集运宫格插件": {
+          "短时包": 3091,
+          "5G包": 1808,
+          "权益包": 1134
+        }
       }
     }
   },
@@ -6306,11 +6384,11 @@ const DATA = {
       "权益tab": 213
     },
     "2026-05": {
-      "集运宫格插件": 57297,
-      "充流量": 53604,
-      "移动营业厅": 3309,
-      "私域": 1046,
-      "权益tab": 134
+      "集运宫格插件": 68870,
+      "充流量": 60699,
+      "移动营业厅": 3682,
+      "私域": 1078,
+      "权益tab": 143
     }
   },
   "monthly_top10": {
@@ -6485,55 +6563,55 @@ const DATA = {
     "2026-05": [
       [
         "20元20G（2023版）",
-        32918
-      ],
-      [
-        "20元10G",
-        14315
-      ],
-      [
-        "首月1分钱随心享促销版",
-        13464
+        35774
       ],
       [
         "10元5G畅看会员7天包",
-        12228
+        16783
+      ],
+      [
+        "首月1分钱随心享促销版",
+        16349
+      ],
+      [
+        "20元10G",
+        15519
       ],
       [
         "12.9元随心听半年包",
-        5781
+        7124
       ],
       [
         "30元15G",
-        4535
+        4784
       ],
       [
         "湖北10元10G10天包",
-        3517
+        4280
       ],
       [
         "22元动感地带抖音联名包",
-        3269
+        3508
       ],
       [
         "河北10元5G",
-        2501
+        2955
       ],
       [
-        "河南10元10G",
-        2131
+        "40元20G7天包",
+        2550
       ]
     ]
   },
   "annual_nods": {
-    "2026": 605935
+    "2026": 617339
   },
   "monthly_nods": {
     "2026-01": 109630,
     "2026-02": 123655,
     "2026-03": 147022,
     "2026-04": 135277,
-    "2026-05": 90351
+    "2026-05": 101755
   },
   "daily_by_month_nods": {
     "2026-01": {
@@ -6689,7 +6767,9 @@ const DATA = {
       "2026-05-22": 5364,
       "2026-05-23": 5357,
       "2026-05-24": 5231,
-      "2026-05-25": 5248
+      "2026-05-25": 5248,
+      "2026-05-26": 5481,
+      "2026-05-27": 5923
     }
   },
   "monthly_channel_nods": {
@@ -6724,11 +6804,11 @@ const DATA = {
       "权益tab": 213
     },
     "2026-05": {
-      "充流量": 46934,
-      "集运宫格插件": 39067,
-      "移动营业厅": 3170,
-      "私域": 1046,
-      "权益tab": 134
+      "充流量": 52305,
+      "集运宫格插件": 44733,
+      "移动营业厅": 3496,
+      "私域": 1078,
+      "权益tab": 143
     }
   },
   "monthly_top10_nods": {
@@ -6903,55 +6983,55 @@ const DATA = {
     "2026-05": [
       [
         "20元20G（2023版）",
-        32918
-      ],
-      [
-        "20元10G",
-        14315
+        35774
       ],
       [
         "首月1分钱随心享促销版",
-        13464
+        16349
+      ],
+      [
+        "20元10G",
+        15519
       ],
       [
         "12.9元随心听半年包",
-        5781
+        7124
       ],
       [
         "30元15G",
-        4535
+        4784
       ],
       [
         "22元动感地带抖音联名包",
-        3269
+        3508
       ],
       [
         "河北10元5G",
-        2501
+        2955
       ],
       [
         "河南10元10G",
-        2131
+        2457
       ],
       [
         "首月1分钱定向随心享促销版",
-        1956
+        2153
       ],
       [
         "9.9元视听随心享会员",
-        931
+        1338
       ]
     ]
   },
   "annual_kuandai": {
-    "2026": 1788
+    "2026": 1805
   },
   "monthly_kuandai": {
     "2026-01": 355,
     "2026-02": 418,
     "2026-03": 362,
     "2026-04": 373,
-    "2026-05": 280
+    "2026-05": 297
   },
   "daily_by_month_kuandai": {
     "2026-01": {
@@ -7107,7 +7187,9 @@ const DATA = {
       "2026-05-22": 10,
       "2026-05-23": 12,
       "2026-05-24": 8,
-      "2026-05-25": 9
+      "2026-05-25": 9,
+      "2026-05-26": 11,
+      "2026-05-27": 6
     }
   },
   "monthly_channel_kuandai": {
@@ -7124,7 +7206,7 @@ const DATA = {
       "宽带中心": 373
     },
     "2026-05": {
-      "宽带中心": 280
+      "宽带中心": 297
     }
   },
   "monthly_top10_kuandai": {
@@ -7299,11 +7381,11 @@ const DATA = {
     "2026-05": [
       [
         "集运预约宽带_宽带中心列表页&宽带tab",
-        189
+        202
       ],
       [
         "【河南】集运预约宽带",
-        53
+        56
       ],
       [
         "【湖北】集运预约宽带（融合）",
@@ -7315,7 +7397,7 @@ const DATA = {
       ],
       [
         "【广西】集运预约宽带",
-        6
+        7
       ],
       [
         "【广东】集运预约宽带",
@@ -7357,9 +7439,9 @@ const DATA = {
       "完成率": 0.9014
     },
     "2026-05": {
-      "完成积分": 159673.1,
-      "完成单量": 90353,
-      "完成率": 0.6387
+      "完成积分": 177085.6,
+      "完成单量": 101757,
+      "完成率": 0.7083
     }
   },
   "daily_jf": {
@@ -8096,6 +8178,16 @@ const DATA = {
         "完成积分": 8224.7,
         "完成单量": 5248,
         "完成率": 0.0329
+      },
+      "2026-05-26": {
+        "完成积分": 8456.3,
+        "完成单量": 5481,
+        "完成率": 0.0338
+      },
+      "2026-05-27": {
+        "完成积分": 8956.2,
+        "完成单量": 5923,
+        "完成率": 0.0358
       }
     }
   }
@@ -8177,8 +8269,8 @@ function switchBiz(biz) {
   if (biz === 'duibi') initComparePanel();
 
   const metaSuffix = biz === 'liuliang'
-    ? '订单：2026-01-01 ~ 2026-05-25 &nbsp;|&nbsp; 积分：同日期范围'
-    : '数据范围：2026-01-01 ~ 2026-05-25 &nbsp;|&nbsp; 口径：类型=' + getBizLabel();
+    ? '订单：2026-01-01 ~ 2026-05-27 &nbsp;|&nbsp; 积分：同日期范围'
+    : '数据范围：2026-01-01 ~ 2026-05-27 &nbsp;|&nbsp; 口径：类型=' + getBizLabel();
   document.getElementById('headerMeta').innerHTML = metaSuffix;
   const footerBase = '数据来源：集运业务流量包数据统计.xlsx';
   const footerSuffix = biz === 'liuliang'

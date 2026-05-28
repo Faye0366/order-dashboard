@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 print("Loading Excel file...")
 wb = openpyxl.load_workbook(r"C:\Users\Faye\Desktop\WorkBuddy数据看板\集运业务流量包数据统计.xlsx", read_only=True)
-ws = wb["Sheet1"]
+ws = wb["数据源"]
 
 rows = list(ws.iter_rows(values_only=True))
 headers = rows[0]
