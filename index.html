@@ -582,6 +582,18 @@
 
   <!-- 积分趋势图表（流量包视图下） -->
   <div class="two-col" id="rowJFChart" style="display:none;margin-bottom:14px;">
+    <!-- 每月累计积分+完成率 -->
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">每月累计完成积分</div>
+          <div class="section-sub">每月完成积分 & 完成率</div>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartJfMonthly"></canvas>
+      </div>
+    </div>
     <!-- 每日积分趋势 -->
     <div class="section">
       <div class="section-header">
@@ -593,18 +605,6 @@
       </div>
       <div class="chart-wrap" style="height:220px">
         <canvas id="chartJfTrend"></canvas>
-      </div>
-    </div>
-    <!-- 每月累计积分+完成率 -->
-    <div class="section">
-      <div class="section-header">
-        <div>
-          <div class="section-title">每月累计完成积分</div>
-          <div class="section-sub">每月完成积分 & 完成率</div>
-        </div>
-      </div>
-      <div class="chart-wrap" style="height:220px">
-        <canvas id="chartJfMonthly"></canvas>
       </div>
     </div>
   </div>
