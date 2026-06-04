@@ -9868,18 +9868,13 @@ function renderInsights() {
     const lowDay = sorted[sorted.length - 1];
     const peakDate = parseInt(peakDay[0].split('-')[2]);
     const lowDate = parseInt(lowDay[0].split('-')[2]);
-    // 计算近7日均值
-    const recent7 = dailyEntries
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .slice(-7)
-      .map(e => e[1]);
-    const avg7 = Math.round(recent7.reduce((s, v) => s + v, 0) / recent7.length);
+    const dayAvg = Math.round(thisMonthTotal / dailyEntries.length);
     cards.push({
       type: 'neutral',
       title: `${curMonthLabel}日单量分析`,
       body: `最高：<strong>${fmt(peakDay[1])}</strong>（${peakDate}日）；` +
         `最低：<strong>${fmt(lowDay[1])}</strong>（${lowDate}日）。` +
-        `近7日均值 <strong>${fmt(avg7)}</strong> 单/天。`
+        `日均 <strong>${fmt(dayAvg)}</strong> 单/天（${dailyEntries.length}天均值）。`
     });
   }
 
