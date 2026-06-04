@@ -8777,6 +8777,21 @@ function getSameDayRangeMoM(dailyData, curMonthKey, prevMonthKey) {
   return ((curSum - prevSum) / prevSum * 100).toFixed(1);
 }
 
+// 返回上月同期（与当前月相同天数区间）的绝对订单量
+function getSameDayRangePrevSum(dailyData, curMonthKey, prevMonthKey) {
+  if (!prevMonthKey) return 0;
+  const curDays = dailyData[curMonthKey] || {};
+  const prevDays = dailyData[prevMonthKey] || {};
+  const curDaysList = Object.keys(curDays).sort();
+  if (curDaysList.length === 0) return 0;
+  const curDaysSet = new Set(curDaysList);
+  const prevDaysFiltered = Object.keys(prevDays).filter(d => {
+    const curVersion = d.replace(/^\d{4}-\d{2}/, curMonthKey.slice(0, 7));
+    return curDaysSet.has(curVersion);
+  });
+  return prevDaysFiltered.reduce((s, d) => s + (prevDays[d] || 0), 0);
+}
+
 // ---- Business tab switch ----
 function switchBiz(biz) {
   currentBiz = biz;
@@ -9822,7 +9837,7 @@ function renderInsights() {
 
   // ① 本月订单量趋势
   const thisMonthTotal = DATA.monthly[curM] || 0;
-  const prevMonthTotal = prevM ? (DATA.monthly[prevM] || 0) : 0;
+  const prevSameDayTotal = getSameDayRangePrevSum(DATA.daily_by_month, curM, prevM);
   const momPct = getSameDayRangeMoM(DATA.daily_by_month, curM, prevM);
   let trendType = 'neutral';
   let trendText = '';
@@ -9835,11 +9850,14 @@ function renderInsights() {
   } else {
     trendText = '暂无上月对比数据';
   }
+  // 计算本月已有数据的最后一天日期，用于说明同期截止日
+  const curDailyKeys = Object.keys(DATA.daily_by_month[curM] || {}).sort();
+  const lastDay = curDailyKeys.length > 0 ? curDailyKeys[curDailyKeys.length - 1].slice(-2) + '日' : '';
   cards.push({
     type: trendType,
     title: `${curMonthLabel}订单量趋势`,
     body: `本月累计 <strong>${fmt(thisMonthTotal)}</strong> 单，${trendText}。` +
-      (prevMonthTotal > 0 ? `上月同期约 <strong>${fmt(prevMonthTotal)}</strong> 单。` : '')
+      (prevSameDayTotal > 0 ? `上月同期（1-${lastDay}）约 <strong>${fmt(prevSameDayTotal)}</strong> 单。` : '')
   });
 
   // ② 本月最高/最低单日
