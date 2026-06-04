@@ -9851,13 +9851,12 @@ function renderInsights() {
     trendText = '暂无上月对比数据';
   }
   // 计算本月已有数据的最后一天日期，用于说明同期截止日
-  const curDailyKeys = Object.keys(DATA.daily_by_month[curM] || {}).sort();
-  const lastDay = curDailyKeys.length > 0 ? curDailyKeys[curDailyKeys.length - 1].slice(-2) + '日' : '';
+  const lastDayStr = lastDay > 0 ? lastDay + '日' : '';
   cards.push({
     type: trendType,
     title: `${curMonthLabel}订单量趋势`,
     body: `本月累计 <strong>${fmt(thisMonthTotal)}</strong> 单，${trendText}。` +
-      (prevSameDayTotal > 0 ? `上月同期（1-${lastDay}）约 <strong>${fmt(prevSameDayTotal)}</strong> 单。` : '')
+      (prevSameDayTotal > 0 && lastDayStr ? `上月同期（1-${lastDayStr}）约 <strong>${fmt(prevSameDayTotal)}</strong> 单。` : '')
   });
 
   // ② 本月最高/最低单日
