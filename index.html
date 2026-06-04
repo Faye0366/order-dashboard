@@ -67,6 +67,64 @@
 
   .footer { text-align: center; font-size: 11px; color: #bbb; padding: 14px 0 24px; }
 
+  /* ---- 数据分析摘要 ---- */
+  .insight-section {
+    background: #fff;
+    border-radius: 10px;
+    border: 0.5px solid #e8eaf0;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .insight-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .insight-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a2744;
+  }
+  .insight-badge {
+    font-size: 10px;
+    background: #eef1f8;
+    color: #5c6b8a;
+    border-radius: 4px;
+    padding: 1px 7px;
+  }
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .insight-card {
+    background: #f7f9fc;
+    border-radius: 8px;
+    padding: 11px 13px;
+    border-left: 3px solid #3566c0;
+  }
+  .insight-card.warn { border-left-color: #e07b39; }
+  .insight-card.good { border-left-color: #2a9d5e; }
+  .insight-card.neutral { border-left-color: #7c8fa8; }
+  .insight-card-title {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 5px;
+  }
+  .insight-card-body {
+    font-size: 12.5px;
+    color: #1a2744;
+    line-height: 1.6;
+  }
+  .insight-card-body strong {
+    color: #1a2744;
+    font-weight: 600;
+  }
+  .insight-up { color: #c24a4a; font-weight: 600; }
+  .insight-down { color: #2a9d5e; font-weight: 600; }
+  .insight-warn { color: #e07b39; font-weight: 600; }
+
   /* ---- 渠道对比看板样式 ---- */
   .compare-panel {
     display: flex;
@@ -462,6 +520,16 @@
       <div class="label">剩余每天积分目标</div>
       <div class="value" id="card-jf-daily" style="color:#e07b39;">—</div>
       <div class="sub" id="card-jf-daily-sub">距250,000目标</div>
+    </div>
+  </div>
+
+  <!-- 数据分析摘要（流量包视图） -->
+  <div class="insight-section" id="rowInsight" style="display:none;">
+    <div class="insight-header">
+      <span class="insight-title">📊 数据摘要</span>
+      <span class="insight-badge" id="insightDate">自动生成</span>
+    </div>
+    <div class="insight-grid" id="insightGrid">
     </div>
   </div>
 
@@ -8260,6 +8328,7 @@ function switchBiz(biz) {
   document.getElementById('rowLL').style.display = biz === 'liuliang' ? '' : 'none';
   document.getElementById('rowJF').style.display = biz === 'liuliang' ? '' : 'none';
   document.getElementById('rowJFChart').style.display = biz === 'liuliang' ? '' : 'none';
+  document.getElementById('rowInsight').style.display = biz === 'liuliang' ? '' : 'none';
   document.getElementById('rowKD').style.display = biz === 'kuandai' ? '' : 'none';
   // 宽带视图下隐藏 TOP10 和渠道模块
   document.getElementById('secTop10').style.display = biz === 'liuliang' ? '' : 'none';
@@ -8297,6 +8366,7 @@ function renderAll() {
     renderChannelTabs();
     renderChannelChart();
     renderJFCards();
+    renderInsights();
     renderJFTrendTabs();
     renderJFTrendChart();
     renderJFMonthlyChart();
@@ -9271,6 +9341,181 @@ function getSameDayRangeMoMForJF(curMonthKey) {
 
 // ---- 积分卡片 ----
 const JF_GOAL = 250000;
+
+// ---- 数据分析摘要 ----
+function renderInsights() {
+  const section = document.getElementById('rowInsight');
+  const grid = document.getElementById('insightGrid');
+  section.style.display = 'block';
+
+  const curM = MONTHS[MONTHS.length - 1];
+  const prevM = MONTHS.length >= 2 ? MONTHS[MONTHS.length - 2] : null;
+  const curMonthLabel = curM.replace('2026-', '') + '月';
+
+  // 更新日期标签
+  const curDailyDays = Object.keys(DATA.daily_by_month[curM] || {});
+  const lastDay = curDailyDays.length > 0
+    ? parseInt(curDailyDays.sort().slice(-1)[0].split('-')[2])
+    : 0;
+  document.getElementById('insightDate').textContent = curM.replace('-', '年') + '月' + lastDay + '日 · 自动生成';
+
+  const cards = [];
+
+  // ① 本月订单量趋势
+  const thisMonthTotal = DATA.monthly[curM] || 0;
+  const prevMonthTotal = prevM ? (DATA.monthly[prevM] || 0) : 0;
+  const momPct = getSameDayRangeMoM(DATA.daily_by_month, curM, prevM);
+  let trendType = 'neutral';
+  let trendText = '';
+  if (momPct !== null) {
+    const pct = parseFloat(momPct);
+    trendType = pct >= 5 ? 'good' : pct <= -5 ? 'warn' : 'neutral';
+    const arrow = pct >= 0 ? '↑' : '↓';
+    const cls = pct >= 0 ? 'insight-up' : 'insight-down';
+    trendText = `<span class="${cls}">${arrow}${Math.abs(pct)}%</span>（较上月同期）`;
+  } else {
+    trendText = '暂无上月对比数据';
+  }
+  cards.push({
+    type: trendType,
+    title: `${curMonthLabel}订单量趋势`,
+    body: `本月累计 <strong>${fmt(thisMonthTotal)}</strong> 单，${trendText}。` +
+      (prevMonthTotal > 0 ? `上月同期约 <strong>${fmt(prevMonthTotal)}</strong> 单。` : '')
+  });
+
+  // ② 本月最高/最低单日
+  const curDailyMap = DATA.daily_by_month[curM] || {};
+  const dailyEntries = Object.entries(curDailyMap);
+  if (dailyEntries.length > 0) {
+    const sorted = dailyEntries.sort((a, b) => b[1] - a[1]);
+    const peakDay = sorted[0];
+    const lowDay = sorted[sorted.length - 1];
+    const peakDate = parseInt(peakDay[0].split('-')[2]);
+    const lowDate = parseInt(lowDay[0].split('-')[2]);
+    // 计算近7日均值
+    const recent7 = dailyEntries
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .slice(-7)
+      .map(e => e[1]);
+    const avg7 = Math.round(recent7.reduce((s, v) => s + v, 0) / recent7.length);
+    cards.push({
+      type: 'neutral',
+      title: `${curMonthLabel}日单量分析`,
+      body: `最高：<strong>${fmt(peakDay[1])}</strong>（${peakDate}日）；` +
+        `最低：<strong>${fmt(lowDay[1])}</strong>（${lowDate}日）。` +
+        `近7日均值 <strong>${fmt(avg7)}</strong> 单/天。`
+    });
+  }
+
+  // ③ 各月趋势对比
+  const fullMonths = MONTHS.filter(m => {
+    const days = Object.keys(DATA.daily_by_month[m] || {});
+    return days.length >= 28; // 整月数据
+  });
+  if (fullMonths.length >= 2) {
+    const vals = fullMonths.map(m => DATA.monthly[m] || 0);
+    const maxIdx = vals.indexOf(Math.max(...vals));
+    const minIdx = vals.indexOf(Math.min(...vals));
+    const maxM = fullMonths[maxIdx].replace('2026-', '') + '月';
+    const minM = fullMonths[minIdx].replace('2026-', '') + '月';
+    cards.push({
+      type: 'neutral',
+      title: '历史月度对比',
+      body: `今年月均 <strong>${fmt(Math.round(vals.reduce((a,b)=>a+b,0)/vals.length))}</strong> 单。` +
+        `订单最高月为 <strong>${maxM}</strong>（${fmt(vals[maxIdx])}），` +
+        `最低月为 <strong>${minM}</strong>（${fmt(vals[minIdx])}）。`
+    });
+  }
+
+  // ④ 积分完成进度预测
+  const jfData = DATA.monthly_jf[curM] || {};
+  const jfVal = jfData['完成积分'] || 0;
+  const jfDailyMap = DATA.daily_jf[curM] || {};
+  const jfDays = Object.keys(jfDailyMap).length;
+  if (jfVal > 0 && jfDays > 0) {
+    const dailyAvg = jfVal / jfDays;
+    const daysInMonth = new Date(2026, parseInt(curM.split('-')[1]), 0).getDate();
+    const projected = Math.round(dailyAvg * daysInMonth);
+    const projRate = (projected / JF_GOAL * 100).toFixed(1);
+    const curRate = (jfVal / JF_GOAL * 100).toFixed(1);
+    const projType = projected >= JF_GOAL ? 'good' : projected >= JF_GOAL * 0.85 ? 'warn' : 'warn';
+    cards.push({
+      type: projType,
+      title: `${curMonthLabel}积分完成预测`,
+      body: `当前进度 <strong>${curRate}%</strong>，按日均 <strong>${fmt1(dailyAvg)}</strong> 积分推算，` +
+        `月底预计完成 <strong>${fmt(projected)}</strong>（目标达成率 <span class="${projected >= JF_GOAL ? 'insight-down' : 'insight-warn'}">${projRate}%</span>）。`
+    });
+  }
+
+  // ⑤ 渠道贡献（Top3 渠道）
+  const channelData = DATA.monthly_channel || {};
+  const curChannel = channelData[curM] || {};
+  // curChannel 格式为 {渠道名: 订单量, ...}
+  const topEntries = Object.entries(curChannel)
+    .sort((a, b) => b[1] - a[1])
+    .filter(e => e[1] > 0)
+    .slice(0, 3);
+  if (topEntries.length > 0 && thisMonthTotal > 0) {
+    const topList = topEntries.map(e => {
+      const pct = (e[1] / thisMonthTotal * 100).toFixed(1);
+      return `<strong>${e[0]}</strong> (${pct}%)`;
+    }).join('、');
+    cards.push({
+      type: 'neutral',
+      title: `${curMonthLabel}主要贡献渠道`,
+      body: `本月订单量 Top 3 渠道：${topList}，合计占比 <strong>${topEntries.reduce((s, e) => s + e[1]/thisMonthTotal*100, 0).toFixed(1)}%</strong>。`
+    });
+  }
+
+  // ⑥ 包体波动分析（涨跌幅最大的产品）
+  if (prevM) {
+    const top10All = DATA.monthly_top10 || {};
+    const curArr = top10All[curM] || []; // [[name, count], ...]
+    const prevArr = top10All[prevM] || [];
+    // 合并当月和上月的包体，转为 {name: count} 方便查找
+    const curMap = {};
+    curArr.forEach(e => { curMap[e[0]] = e[1]; });
+    const prevMap = {};
+    prevArr.forEach(e => { prevMap[e[0]] = e[1]; });
+    // 找出两个月都出现过的包体，计算涨跌幅
+    const allNames = [...new Set([...Object.keys(curMap), ...Object.keys(prevMap)])];
+    const flucts = [];
+    allNames.forEach(name => {
+      const c = curMap[name] || 0;
+      const p = prevMap[name] || 0;
+      if (p > 0 && c > 0) {
+        const change = (c - p) / p * 100;
+        const impact = c - p;
+        flucts.push({ name, cur: c, prev: p, change, impact });
+      }
+    });
+    // 按绝对涨跌量（影响值）排序，取 Top 3
+    flucts.sort((a, b) => Math.abs(b.impact) - Math.abs(a.impact));
+    const topFluct = flucts.slice(0, 3);
+    if (topFluct.length > 0) {
+      const impactSum = topFluct.reduce((s, f) => s + f.impact, 0);
+      const impactDir = impactSum >= 0 ? '拉动' : '拖累';
+      const fluctList = topFluct.map(f => {
+        const arrow = f.impact >= 0 ? '↑' : '↓';
+        const cls = f.impact >= 0 ? 'insight-up' : 'insight-down';
+        return `<strong>${f.name}</strong> <span class="${cls}">${arrow}${Math.abs(f.change).toFixed(1)}%</span>（${arrow}${fmt(Math.abs(f.impact))}单）`;
+      }).join('<br>');
+      cards.push({
+        type: impactSum >= 0 ? 'good' : 'warn',
+        title: `${curMonthLabel}包体波动分析`,
+        body: `对大盘影响最大的 Top 3 产品：${fluctList}<br>合计${impactDir}大盘约 <strong>${Math.abs(impactSum).toLocaleString()}</strong> 单。`
+      });
+    }
+  }
+
+  // 渲染卡片
+  grid.innerHTML = cards.map(c => `
+    <div class="insight-card ${c.type}">
+      <div class="insight-card-title">${c.title}</div>
+      <div class="insight-card-body">${c.body}</div>
+    </div>
+  `).join('');
+}
 
 function renderJFCards() {
   const curM = MONTHS[MONTHS.length - 1]; // 2026-05
